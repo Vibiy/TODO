@@ -3,7 +3,7 @@ from django.db import models
 
 class Task(models.Model):
     name = models.CharField(max_length=30)
-    tasklist = models.ForeignKey('todo.TaskList', on_delete=models.CASCADE, blank=True, null=True)
+    tasklist = models.ForeignKey('todo.TaskList', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

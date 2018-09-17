@@ -1,14 +1,16 @@
 {% load static %}<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Detail page</title>
-  </head>
-  <body>
-    <h1>{{ tasklist.tasklist__name }}</h1>
-    {% for task in tasklist %}
-      <p>{{ task }}</p>
-    {% endfor %}
-    <a href="">Добавить</a>
-  </body>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Detail page</title>
+    </head>
+    <body>
+        <div>
+            <h1>{{ tasklist }}</h1>
+            {% for task in tasklist %}
+                <p>{{ task }}</p>
+            {% endfor %}
+        <a href="">Добавить</a>
+        </div>
+    </body>
 </html>
