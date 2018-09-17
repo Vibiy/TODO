@@ -9,5 +9,6 @@ def index(request):
 
 def detail(request, pk):
     tasklist = Task.objects.filter(tasklist__id=pk)
-    context = {'tasklist': tasklist}
+    listname = TaskList.objects.get(id=pk).name
+    context = {'tasklist': tasklist, 'listname': listname}
     return render(request, "detail.html", context)
