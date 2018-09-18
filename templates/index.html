@@ -1,4 +1,4 @@
-{% load static %}<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -7,8 +7,12 @@
     <body>
         <div>
             <h1>TODO</h1>
-            {% for task in tasklist %}
-                <li><a href="http://127.0.0.1:8000/detail/{{ task.id }}">{{ task }} {{ task.count }}</a></li>
+            {% for task_group in task_group_list %}
+                <li>
+                    <a href="http://127.0.0.1:8000/detail/{{ task_group.id }}">
+                        {{ task_group }} {{ task_group.task_set.count }}
+                    </a>
+                </li>
             {% endfor %}
             <a href="">Добавить</a>
         </div>

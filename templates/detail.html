@@ -1,4 +1,4 @@
-{% load static %}<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -6,11 +6,12 @@
     </head>
     <body>
         <div>
-            <h1>{{ listname }}</h1>
-            {% for task in tasklist %}
-                <p>{{ task }}</p>
+            <h1>{{ task_list.first.group.name }}</h1>
+            {% for task in task_list %}
+                <li>{{ task }}</li>
             {% endfor %}
-        <a href="">Добавить</a>
+            <a href="">Добавить</a><br>
+            <a href="http://127.0.0.1:8000/">Вернуться на главную страницу</a>
         </div>
     </body>
 </html>
