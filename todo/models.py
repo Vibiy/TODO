@@ -21,7 +21,7 @@ class Task(models.Model):
     comment = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    tags = models.ManyToManyField('todo.Tag')
+    tags = models.ManyToManyField('todo.Tag', blank=True)
 
     def __str__(self):
         return self.name

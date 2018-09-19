@@ -17,7 +17,7 @@
                 {% endif %}
                 <br>
             {% endfor %}
-            <a href="">Добавить</a><br>
+            <a href="{% url 'add-task' 1 %}">Добавить</a><br>
             <a href="{% url 'index' %}">Вернуться на главную страницу</a>
         </div>
     </body>

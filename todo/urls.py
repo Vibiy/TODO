@@ -8,6 +8,8 @@ from . import views
 urlpatterns = [
     path('', views.TaskGroupListView.as_view(), name='index'),
     path('detail/<int:pk>/', views.TaskListView.as_view(), name='detail'),
+    path('add_group_task', views.TaskGroupCreateView.as_view(), name='add-group'),
+    path('detail/<int:pk>/add_task', views.TaskCreateView.as_view(), name='add-task'),
     path('admin/', admin.site.urls),
 ]
 
