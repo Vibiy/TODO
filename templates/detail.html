@@ -8,7 +8,14 @@
         <div>
             <h1>{{ task_list.first.group.name }}</h1>
             {% for task in task_list %}
-                <li>{{ task }}</li>
+                <li>{{ task.name }}</li>
+                {% if task.tags.all %}
+                    <p><em>Теги: {% for tag in task.tags.all %}{{ tag }} {% endfor %}</em></p>
+                {% endif %}
+                {% if task.comment %}
+                    <p>Комментарий: {{ task.comment }}</p>
+                {% endif %}
+                <br>
             {% endfor %}
             <a href="">Добавить</a><br>
             <a href="{% url 'index' %}">Вернуться на главную страницу</a>
