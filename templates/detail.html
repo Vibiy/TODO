@@ -6,7 +6,7 @@
     </head>
     <body>
         <div>
-            <h1>{{ task_list.first.group.name }}</h1>
+            <h1>{{ title }}</h1>
             {% for task in task_list %}
                 <li>{{ task.name }}</li>
                 {% if task.tags.all %}

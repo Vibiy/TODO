@@ -6,8 +6,8 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('detail/<int:pk>/', views.detail, name='detail'),
+    path('', views.TaskGroupListView.as_view(), name='index'),
+    path('detail/<int:pk>/', views.TaskListView.as_view(), name='detail'),
     path('admin/', admin.site.urls),
 ]
 
