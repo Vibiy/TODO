@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
@@ -11,6 +12,11 @@ class TaskGroupList(ListView):
     model = TaskGroup
     template_name = 'index.html'
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.annotate(number_of_tasks=Count('task'))
+        return qs
+
 
 class TaskGroupItem(DetailView):
     model = TaskGroup
@@ -18,6 +24,7 @@ class TaskGroupItem(DetailView):
 
     def get_queryset(self):
         qs = TaskGroup.objects.filter(id=self.kwargs['pk'])
+        qs = qs.prefetch_related('task_set__tags')
         return qs
 
 
