@@ -6,8 +6,8 @@
     </head>
     <body>
         <div>
-            <h1>{{ title }}</h1>
-            {% for task in task_list %}
+            <h1>{{ object.name }}</h1>
+            {% for task in object.task_set.all %}
                 <li>{{ task.name }}</li>
                 {% if task.tags.all %}
                     <p><em>Теги: {% for tag in task.tags.all %}{{ tag }} {% endfor %}</em></p>
@@ -17,7 +17,7 @@
                 {% endif %}
                 <br>
             {% endfor %}
-            <a href="{% url 'add-task' 1 %}">Добавить</a><br>
+            <a href="{% url 'add-task' object.id %}">Добавить</a><br>
             <a href="{% url 'index' %}">Вернуться на главную страницу</a>
         </div>
     </body>

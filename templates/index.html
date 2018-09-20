@@ -7,7 +7,7 @@
     <body>
         <div>
             <h1>TODO</h1>
-            {% for task_group in task_group_list %}
+            {% for task_group in object_list %}
                 <li>
                     <a href="{% url 'detail' task_group.id %}">
                         {{ task_group }} {{ task_group.task_set.count }}
