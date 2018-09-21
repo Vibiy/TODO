@@ -2,6 +2,7 @@ from django.db import models
 
 
 class TaskGroup(models.Model):
+
     name = models.CharField(max_length=30)
 
     def __str__(self):
@@ -9,6 +10,7 @@ class TaskGroup(models.Model):
 
 
 class Tag(models.Model):
+
     name = models.CharField(max_length=20)
 
     def __str__(self):
@@ -16,6 +18,7 @@ class Tag(models.Model):
 
 
 class Task(models.Model):
+
     name = models.CharField(max_length=30)
     group = models.ForeignKey('todo.TaskGroup', on_delete=models.CASCADE)
     comment = models.TextField(blank=True)

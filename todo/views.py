@@ -9,6 +9,7 @@ from .forms import TaskModelForm, TaskGroupModelForm
 
 
 class TaskGroupList(ListView):
+
     model = TaskGroup
     template_name = 'index.html'
 
@@ -19,6 +20,7 @@ class TaskGroupList(ListView):
 
 
 class TaskGroupItem(DetailView):
+
     model = TaskGroup
     template_name = 'detail.html'
 
@@ -29,6 +31,7 @@ class TaskGroupItem(DetailView):
 
 
 class TaskGroupCreate(CreateView):
+
     model = TaskGroup
     form_class = TaskGroupModelForm
     context_object_name = 'form'
@@ -37,6 +40,7 @@ class TaskGroupCreate(CreateView):
 
 
 class TaskCreate(CreateView):
+
     model = Task
     form_class = TaskModelForm
     context_object_name = 'form'
