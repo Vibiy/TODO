@@ -9,7 +9,6 @@ from .forms import TaskModelForm, TaskGroupModelForm
 
 
 class TaskGroupList(ListView):
-
     model = TaskGroup
     template_name = 'index.html'
 
@@ -20,18 +19,11 @@ class TaskGroupList(ListView):
 
 
 class TaskGroupItem(DetailView):
-
-    model = TaskGroup
+    queryset = TaskGroup.objects.prefetch_related('task_set__tags')
     template_name = 'detail.html'
-
-    def get_queryset(self):
-        qs = TaskGroup.objects.filter(id=self.kwargs['pk'])
-        qs = qs.prefetch_related('task_set__tags')
-        return qs
 
 
 class TaskGroupCreate(CreateView):
-
     model = TaskGroup
     form_class = TaskGroupModelForm
     context_object_name = 'form'
@@ -40,7 +32,6 @@ class TaskGroupCreate(CreateView):
 
 
 class TaskCreate(CreateView):
-
     model = Task
     form_class = TaskModelForm
     context_object_name = 'form'
