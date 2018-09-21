@@ -22,6 +22,7 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     tags = models.ManyToManyField('todo.Tag', blank=True)
+    active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
