@@ -134,3 +134,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 INTERNAL_IPS = '127.0.0.1:8000'
+
+
+JET_DEFAULT_THEME = 'light-gray'
+
+JET_SIDE_MENU_COMPACT = True
