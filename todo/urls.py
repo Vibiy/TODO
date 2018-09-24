@@ -10,6 +10,8 @@ urlpatterns = [
     path('detail/<int:pk>/', views.TaskGroupItem.as_view(), name='detail'),
     path('add_group_task', views.TaskGroupCreate.as_view(), name='add-group'),
     path('detail/<int:pk>/add_task', views.TaskCreate.as_view(), name='add-task'),
+    path('jet', include('jet.urls', 'jet')),
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path('admin/', admin.site.urls),
 ]
 
