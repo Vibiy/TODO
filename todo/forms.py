@@ -7,7 +7,7 @@ class TaskModelForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        exclude = []
+        exclude = ['group']
 
 
 class TaskGroupModelForm(forms.ModelForm):
