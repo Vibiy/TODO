@@ -7,7 +7,7 @@
     <body>
         <div>
             <h1>{{ object.name }}</h1>
-            {% for task in object.task_set.all.active %}
+            {% for task in object.task_set.active %}
                 <li>{{ task.name }}</li>
                 {% if task.tags.all %}
                     <p><em>Теги: {% for tag in task.tags.all %}{{ tag }} {% endfor %}</em></p>
