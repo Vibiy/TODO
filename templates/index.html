@@ -7,6 +7,13 @@
     <body>
         <div>
             <h1>TODO</h1>
+            <h2>Создание новой группы заданий</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Создать"/>
+            </form>
+            <h2>Список групп заданий:</h2>
             {% for task_group in object_list %}
                 <li>
                     <a href="{% url 'detail' task_group.id %}">
@@ -14,7 +21,7 @@
                     </a>
                 </li>
             {% endfor %}
-            <a href="{% url 'add-group' %}">Добавить</a><br>
+            <br>
             <a href="{% url 'admin:index' %}">Администрация</a>
 
         </div>

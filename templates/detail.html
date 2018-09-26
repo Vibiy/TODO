@@ -5,19 +5,21 @@
       <title>Detail page</title>
     </head>
     <body>
+        <h2>Создание новой задачи</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Создать"/>
+        </form>
         <div>
-            <h1>{{ object.name }}</h1>
+            <h2>Список задач {{ object.name }}:</h2>
             {% for task in object.task_set.active %}
                 <li>{{ task.name }}</li>
                 {% if task.tags.all %}
                     <p><em>Теги: {% for tag in task.tags.all %}{{ tag }} {% endfor %}</em></p>
                 {% endif %}
-                {% if task.comment %}
-                    <p>Комментарий: {{ task.comment }}</p>
-                {% endif %}
                 <br>
             {% endfor %}
-            <a href="{% url 'add-task' object.id %}">Добавить</a><br>
             <a href="{% url 'index' %}">Вернуться на главную страницу</a>
         </div>
     </body>
