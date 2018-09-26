@@ -6,8 +6,8 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.TaskGroupList.as_view(), name='index'),
-    path('detail/<int:pk>/', views.TaskGroupItem.as_view(), name='detail'),
+    path('', views.TaskGroupCreateAndList.as_view(), name='index'),
+    path('detail/<int:pk>/', views.TaskGroupCreateAndDetail.as_view(), name='detail'),
     path('jet', include('jet.urls', 'jet')),
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path('admin/', admin.site.urls),

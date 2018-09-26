@@ -14,7 +14,7 @@
                 <input type="submit" value="Создать"/>
             </form>
             <h2>Список групп заданий:</h2>
-            {% for task_group in object_list %}
+            {% for task_group in task_group_list %}
                 <li>
                     <a href="{% url 'detail' task_group.id %}">
                         {{ task_group }} {{ task_group.number_of_tasks }}
