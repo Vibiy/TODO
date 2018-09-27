@@ -1,7 +1,6 @@
 from django.db.models import Count
 from django.http import HttpResponseRedirect
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, BaseCreateView
+from django.views.generic.edit import CreateView
 from django.urls import reverse, reverse_lazy
 
 from .models import Task, TaskGroup
