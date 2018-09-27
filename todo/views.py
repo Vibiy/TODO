@@ -27,9 +27,10 @@ class TaskGroupCreateAndDetail(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        qs = Task.objects.active().prefetch_related('tags')
+        qs = Task.prefetched.active()
+        active_prefetched = Prefetch('task_set', queryset=qs)
         context['group'] = TaskGroup.objects\
-            .prefetch_related(Prefetch('task_set', queryset=qs))\
+            .prefetch_related(active_prefetched)\
             .get(id=self.kwargs['pk'])
         return context
 

@@ -1,12 +1,6 @@
 from django.db import models
 
 
-class TaskManager(models.Manager):
-
-    def active(self):
-        return super().filter(active=True)
-
-
 class TaskGroup(models.Model):
     name = models.CharField(max_length=30, unique=True)
 
@@ -21,6 +15,18 @@ class Tag(models.Model):
         return self.name
 
 
+class TaskQuerySet(models.QuerySet):
+
+    def active(self):
+        return self.filter(active=True)
+
+
+class TaskManager(models.Manager):
+
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related('tags')
+
+
 class Task(models.Model):
     name = models.CharField(max_length=30)
     group = models.ForeignKey('todo.TaskGroup', on_delete=models.CASCADE)
@@ -29,7 +35,8 @@ class Task(models.Model):
     modified = models.DateTimeField(auto_now=True)
     tags = models.ManyToManyField('todo.Tag', blank=True)
     active = models.BooleanField(default=False)
-    objects = TaskManager()
+    objects = TaskQuerySet.as_manager()
+    prefetched = TaskManager.from_queryset(TaskQuerySet)()
 
     def __str__(self):
         return self.name
