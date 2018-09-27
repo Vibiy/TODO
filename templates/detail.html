@@ -12,12 +12,13 @@
             <input type="submit" value="Создать"/>
         </form>
         <div>
-            <h2>Список задач {{ object.name }}:</h2>
-            {% for task in object.task_set.active %}
-                <li>{{ task.name }}</li>
-                {% if task.tags.all %}
-                    <p><em>Теги: {% for tag in task.tags.all %}{{ tag }} {% endfor %}</em></p>
-                {% endif %}
+            <h2>Список задач {{ group.first.name }}:</h2>
+            {% for task in group.first.task_set.active %}
+                <li>{{ task.name }}
+                    {% if task.tags.all %}
+                        <em>{% for tag in task.tags.all %}    {{ tag }} {% endfor %}</em>
+                    {% endif %}
+                </li>
                 <br>
             {% endfor %}
             <a href="{% url 'index' %}">Вернуться на главную страницу</a>
