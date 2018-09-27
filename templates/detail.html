@@ -12,8 +12,8 @@
             <input type="submit" value="Создать"/>
         </form>
         <div>
-            <h2>Список задач {{ group.first.name }}:</h2>
-            {% for task in group.first.task_set.active %}
+            <h2>Список задач {{ group.name }}:</h2>
+            {% for task in group.task_set.all %}
                 <li>{{ task.name }}
                     {% if task.tags.all %}
                         <em>{% for tag in task.tags.all %}    {{ tag }} {% endfor %}</em>

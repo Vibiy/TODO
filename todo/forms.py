@@ -1,16 +1,16 @@
-from django import forms
+from django.forms import ModelForm
 
 from .models import Task, TaskGroup
 
 
-class TaskModelForm(forms.ModelForm):
+class TaskModelForm(ModelForm):
 
     class Meta:
         model = Task
         exclude = ['group']
 
 
-class TaskGroupModelForm(forms.ModelForm):
+class TaskGroupModelForm(ModelForm):
 
     class Meta:
         model = TaskGroup

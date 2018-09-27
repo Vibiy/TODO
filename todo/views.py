@@ -1,5 +1,4 @@
-from django.db.models import Count
-from django.http import HttpResponseRedirect
+from django.db.models import Count, Prefetch
 from django.views.generic.edit import CreateView
 from django.urls import reverse, reverse_lazy
 
@@ -15,8 +14,8 @@ class TaskGroupCreateAndList(CreateView):
     success_url = reverse_lazy('index')
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        context['task_group_list'] = TaskGroup.objects.all().annotate(number_of_tasks=Count('task'))
+        context = super().get_context_data(**kwargs)
+        context['task_group_list'] = TaskGroup.objects.annotate(number_of_tasks=Count('task'))
         return context
 
 
@@ -27,15 +26,17 @@ class TaskGroupCreateAndDetail(CreateView):
     context_object_name = 'form'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        qs = TaskGroup.objects.prefetch_related('task_set__tags')
-        context['group'] = qs.filter(id=self.kwargs['pk'])
+        context = super().get_context_data(**kwargs)
+        qs = Task.objects.active().prefetch_related('tags')
+        context['group'] = TaskGroup.objects\
+            .prefetch_related(Prefetch('task_set', queryset=qs))\
+            .get(id=self.kwargs['pk'])
         return context
 
     def form_valid(self, form):
         form.instance.group = TaskGroup.objects.get(id=self.kwargs['pk'])
         form.save()
-        return HttpResponseRedirect(self.get_success_url())
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('detail', kwargs=self.kwargs)
