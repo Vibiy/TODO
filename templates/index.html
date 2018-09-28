@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -8,10 +8,9 @@
         <div>
             <h1>TODO</h1>
             <h2>Создание новой группы заданий</h2>
-            <form method="post">
-                {% csrf_token %}
+            <form class="my-ajax-form" method="POST" data-url='{% url 'index' %}'>
                 {{ form.as_p }}
-                <input type="submit" value="Создать"/>
+                <input type='submit' value="Создать">
             </form>
             <h2>Список групп заданий:</h2>
             {% for task_group in task_group_list %}
@@ -23,7 +22,70 @@
             {% endfor %}
             <br>
             <a href="{% url 'admin:index' %}">Администрация</a>
-
         </div>
+        <!-- jQuery (required for this Ajax tutorial) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            var csrftoken = getCookie('csrftoken');
+
+            function csrfSafeMethod(method) {
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+
+        </script>
+        <script>
+            $(document).ready(function(){
+                var $myForm = $('.my-ajax-form')
+                $myForm.submit(function(event){
+                    event.preventDefault()
+                    var $formData = $(this).serialize()
+                    var $thisURL = $myForm.attr('data-url') || window.location.href
+                    $.ajax({
+                        method: "POST",
+                        url: $thisURL,
+                        data: $formData,
+                        success: handleFormSuccess,
+                        error: handleFormError,
+                    })
+
+                    function handleFormSuccess(data, textStatus, jqXHR){
+                        console.log(data)
+                        console.log(textStatus)
+                        console.log(jqXHR)
+                        $myForm[0].reset(); // reset form data
+                    }
+
+                    function handleFormError(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR)
+                        console.log(textStatus)
+                        console.log(errorThrown)
+                    }
+                })
+})
+        </script>
+{#        <script src="{% static 'js/csrf_ready_ajax_calls.js' %}"></script>#}
+{#        <script src="{% static 'js/required_jquery_script.js' %}"></script>#}
     </body>
 </html>

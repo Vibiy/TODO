@@ -1,4 +1,5 @@
 from django.db.models import Count, Prefetch
+from django.http import JsonResponse
 from django.views.generic.edit import CreateView
 from django.urls import reverse, reverse_lazy
 
@@ -12,6 +13,23 @@ class TaskGroupCreateAndList(CreateView):
     form_class = TaskGroupModelForm
     context_object_name = 'form'
     success_url = reverse_lazy('index')
+
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        if self.request.is_ajax():
+            return JsonResponse(form.errors, status=400)
+        else:
+            return response
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        if self.request.is_ajax():
+            data = {
+                'message': "Successfully submitted form data."
+            }
+            return JsonResponse(data)
+        else:
+            return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
