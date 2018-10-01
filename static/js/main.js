@@ -34,12 +34,14 @@ $(document).ready(function(){
                         console.log(textStatus)
                         console.log(jqXHR)
                         $myForm[0].reset(); // reset form data
+                        alert(data.message)
                     }
 
                     function handleFormError(jqXHR, textStatus, errorThrown){
                         console.log(jqXHR)
                         console.log(textStatus)
                         console.log(errorThrown)
+                        alert(data.message)
                     }
                 })
 })

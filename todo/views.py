@@ -17,7 +17,10 @@ class TaskGroupCreateAndList(CreateView):
     def form_invalid(self, form):
         response = super().form_invalid(form)
         if self.request.is_ajax():
-            return JsonResponse(form.errors, status=400)
+            data = {
+                'message': 'Неправильное имя группы. Введите заново.'
+            }
+            return JsonResponse(data)
         else:
             return response
 
@@ -25,7 +28,7 @@ class TaskGroupCreateAndList(CreateView):
         response = super().form_valid(form)
         if self.request.is_ajax():
             data = {
-                'message': "Successfully submitted form data."
+                'message': 'Новая группа успешно создана.'
             }
             return JsonResponse(data)
         else:
