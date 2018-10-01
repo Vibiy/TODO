@@ -55,10 +55,27 @@ class TaskGroupCreateAndDetail(CreateView):
             .get(id=self.kwargs['pk'])
         return context
 
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        if self.request.is_ajax():
+            data = {
+                'message': 'Ошибка валидации формы, введите заново.'
+            }
+            return JsonResponse(data)
+        else:
+            return response
+
     def form_valid(self, form):
         form.instance.group = TaskGroup.objects.get(id=self.kwargs['pk'])
         form.save()
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        if self.request.is_ajax():
+            data = {
+                'message': 'Новая задача успешно создана.'
+            }
+            return JsonResponse(data)
+        else:
+            return response
 
     def get_success_url(self):
         return reverse('detail', kwargs=self.kwargs)
